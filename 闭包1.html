@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+</head>
+<body>
+    <button id="btn">点击</button>
+    <p>一共点了<span id="count">0</span>次！</p>
+
+    <script type="text/javascript">
+        // init some variable
+        var btn = document.getElementById('btn'),
+            count = document.getElementById('count');
+
+        // 闭包
+        var click_func = function(){
+            var times = 0;
+
+            return function(){
+                count.innerHTML = ++times;
+           };
+        };
+
+        // trigger
+        btn.onclick = click_func();
+    </script>
+</body>
+</html>

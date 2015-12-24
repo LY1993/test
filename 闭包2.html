@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+<style type="text/css">
+.c{
+	background:#0F0;}
+.a{}
+div{ width:50px; height:50px; background:#ccc; margin:5px}
+.b{}
+.d{ background:#0F0}
+</style>
+
+</head>
+
+<body>
+
+
+
+    <ul id="u">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+    <div id="d">
+    	<div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        
+    </div>
+	<script type="text/javascript">
+    	window.onload = function (){
+		}
+			var oUl = document.getElementById('u');
+			var ali = oUl.getElementsByTagName('li');	
+			var oDiv = document.getElementById('d');
+			var di = oDiv.getElementsByTagName('div');
+			function cl(){
+			 for(var i = 0; i < ali.length ; i++){
+				 ali[i].className = 'a';
+				 di[i].className = 'b';
+				 }
+			}
+
+			 for(var i = 0; i < ali.length ; i++){
+				
+				var a = function (i){
+				 
+				return function(){
+					cl();
+				ali[i].className = 'c';
+				di[i].className = 'd';
+				
+				}
+			};
+			ali[i].onclick = a(i);
+			
+			}
+    </script>
+</body>
+</html>
