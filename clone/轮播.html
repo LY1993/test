@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+
+
+<style type="text/css">
+*{padding:0; margin:0}
+#div1{width:220px; height:300px; position:relative; background:#FF0;top:20px; overflow:hidden; margin:0 auto;}
+ul{position:absolute; left:0;  width:2000px}
+li{float:left; list-style:none;}
+img{width:220px; height:300px;}
+</style>
+</head>
+
+<body>
+
+<div id="div1">
+	<ul>
+    	<li><img src="1.jpg"/></li>
+        <li><img src="1.jpg"/></li>
+        <li><img src="1.jpg"/></li>
+    </ul>
+</div>
+
+
+<script type="text/javascript">
+
+	var oDiv = document.getElementById('div1');
+	//var aImg = oUl.getElementByTagName('img');
+	var iNow = 1;
+	var iNum = 3;
+	
+	function move(){
+		var oUl = document.getElementsByTagName('ul')[0];
+		var aLi = document.getElementsByTagName('li');
+		if(iNow%200!==0)
+		{
+			oUl.style.left = - iNow * 1 / 100 * 220 + 'px';
+		    iNow++;
+			if(iNow==301)
+			{	oUl.style.left =0;
+				for(var i = 0; i<3 ;i++)
+				{
+					oUl.removeChild(aLi[0]);
+				}
+				iNow=1;
+				
+				}
+			}
+		else{	
+				for(var i = 0; i<3 ;i++){
+				var o = aLi[i].cloneNode(true);
+				//obj.style.left='0';
+				oUl.appendChild(o);
+				iNow++;
+				}
+				
+					}
+
+	
+				
+	}
+	setInterval('move()',1);
+</script>
+</body>
+</html>
