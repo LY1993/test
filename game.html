@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+<style type="text/css">
+*{ padding:0; margin:0;}
+#d1{ width:800px; height:600px; margin:20px auto;position:relative}
+#btn{ width:80px; height:50px; background:#0FF; color:#FFF; position:absolute; top:45%;}
+
+</style>
+</head>
+
+<body>
+<div id="d1">
+<canvas id="can" onClick="play(event)"></canvas>
+<button id="btn" value="重新游戏" onClick="resetTo()">重新游戏</button>
+</div>
+
+<script type="text/javascript">
+	
+	window.onload = function(){
+		draw();
+	}
+	
+	//棋盘
+	function draw(){
+		var can = document.getElementById('can');
+		var cxt = can.getContext('2d');
+			can.width = 560;
+			can.height = 560;
+			cxt.fillStyle = '#DB6D00';
+			
+			cxt.fillRect(0,0,600,600);
+			pan();
+			cxt.fillStyle = '#000';
+			cxt.beginPath();
+			cxt.arc(280,280,5,0,2*Math.PI);
+			cxt.fill();
+		}
+		
+		//重置游戏
+		function resetTo(){
+			draw();
+			for(var i = 0; i< 15; i++){
+			for(var j = 0; j< 15 ;j++){
+				map[i][j] = 0;
+				}
+		}
+			end = false;
+			}
+			
+		//表示下子的范围
+		var map = new Array(15);
+		for(var i = 0; i< 15; i++){
+			map[i] = new Array(15);
+			for(var j = 0; j< 15 ;j++){
+				map[i][j] = 0;
+				}
+		}
+		
+		//画棋盘
+		function pan(){
+			var cxt = can.getContext('2d');
+			cxt.lineWidth = 2;
+			cxt.strokeStyle = '#000';
+			for(var i = 0; i<15; i++){
+				for(var j = 0; j<15; j++)
+				{
+					cxt.strokeRect(j*40,i*40,40,40);
+				}
+			}
+		
+		}
+		
+		
+		//画棋子
+		function black(a,b){
+			
+			var cxt = can.getContext('2d');
+			
+			cxt.fillStyle = '#000';
+			
+			cxt.beginPath();
+			cxt.arc(a*40,b*40,20,0,2*Math.PI);
+			cxt.fill();
+			}
+			
+			
+		//白色
+		function wht(a,b){
+			
+			var cxt = can.getContext('2d');
+			
+			cxt.fillStyle = '#fff';
+			
+			cxt.beginPath();
+			cxt.arc(a*40,b*40,20,0,2*Math.PI);
+			cxt.fill();
+			}
+			
+			
+		//下棋事件
+		var isBlack = true;
+			end = false;
+		function play(e){
+			if(!end){
+			var d = document.getElementById('d1');
+			var x = e.clientX - d.offsetLeft-1;
+			var y = e.clientY - d.offsetTop-1;
+			var a,b;
+				if(x%40>=20){
+					a = parseInt(x/40)+1
+					}
+				else{
+					a = parseInt(x/40);
+					}
+				
+				if(y%40>=20){
+					b = parseInt(y/40)+1
+					}
+				else{
+					b = parseInt(y/40);
+					}
+			if(!map[a][b]){
+				if(isBlack){
+					black(a,b);
+					map[a][b] = 2;
+					isEnd(2,a,b);
+					isBlack = false;
+					}
+				else{
+					wht(a,b);
+					map[a][b] = 1;
+					isEnd(1,a,b);
+					isBlack = true;
+					}
+			}
+			else{
+				alert('走错了')
+				}
+			}
+		}
+		//输赢算法
+		function isEnd(t,a,b){
+			var _a = a,
+				_b = b;
+				num = 1;
+			while(b-1>0&&map[a][b-1]==t){
+				num++;
+				b--;
+				}
+				
+			a = _a;
+			b = _b;
+			
+			while(b+1<15&&map[a][b+1]==t){
+				num++;
+				b++;
+				}
+			if(num>=5){
+				if(t==1){
+					alert('白色赢');
+					}
+				else{alert('黑色赢');}
+				end = true;
+				}
+				
+				_a = a,
+				_b = b;
+				num = 1;
+			while(a-1>0&&map[a-1][b]==t){
+				num++;
+				a--;
+				}
+				
+			a = _a;
+			b = _b;
+			
+			while(a+1<15&&map[a+1][b]==t){
+				num++;
+				a++;
+				}
+			if(num>=5){
+				if(t==1){
+					alert('白色赢');
+					}
+				else{alert('黑色赢');}
+				end = true;}
+				
+				_a = a,
+				_b = b;
+				num = 1;
+			while(a+1<15&&b-1>0&&map[a+1][b-1]==t){
+				num++;
+				a++;
+				b--;
+				}
+				
+			a = _a;
+			b = _b;
+			
+			while(a-1>0&&b+1<15&&map[a-1][b+1]==t){
+				num++;
+				a--;
+				b++;
+				}
+			if(num>=5){
+				if(t==1){
+					alert('白色赢');
+					}
+				else{alert('黑色赢');}
+				end = true;}
+				
+				_a = a,
+				_b = b;
+				num = 1;
+			while(a-1>0&&b-1>0&&map[a-1][b-1]==t){
+				num++;
+				a--;
+				b--;
+				}
+				
+			a = _a;
+			b = _b;
+			
+			while(a+1<15&&b+1<15&&map[a+1][b+1]==t){
+				num++;
+				a++;
+				b++;
+				}
+			if(num>=5){
+				if(t==1){
+					alert('白色赢');
+					}
+				else{alert('黑色赢');}
+				end = true;}	
+			}
+		
+</script>
+</body>
+</html>
