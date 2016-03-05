@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+* {padding: 0; margin: 0;}
+#slider {width: 950px; height: 300px; margin: 0 auto;  position: relative; overflow: hidden;}
+#slider ul {position: absolute; left: 0; top: 0; list-style-type: none;}
+#slider ul li {float: left; position: absolute;}
+#slider img {width: 950px; height: 300px;}
+#btn-group {width: 950px; height: 20px; overflow: hidden; position: absolute; left: 0; top: 260px; text-align: center;}
+#btn-group a {width: 20px; height: 20px; border-radius: 10px; margin:0 5px; display: inline-block; _display: inline; _zoom: 1; background-color: #999;}
+#btn-group a.active {background-color: #fff; border-radius: 1px solid #eee;}
+</style>
+<script src="js/toMove.js"></script>
+<script>
+window.onload=function ()
+{
+	var oDiv=document.getElementById("slider");
+	var oUL=oDiv.getElementsByTagName("ul")[0];	
+	var oLi=oUL.getElementsByTagName("li");
+	var oImgW=parseInt(getStyle(oLi[0],'width'));
+	oUL.style.width=oImgW*oLi.length+'px';
+	var oBtnG=document.getElementById("btn-group");
+	var oA=oBtnG.getElementsByTagName('a');
+	var iNow=0;
+	var iNow2=0;
+	var timer=null;
+	for(var i=1; i<oA.length; i++)
+	{
+		oLi[i].style.left=oImgW+'px';
+	}
+	for(var i=0; i<oA.length; i++)
+	{
+		oA[i].index=i;
+		oA[i].onmouseover=function()
+		{	
+			if(iNow<this.index)
+			{
+				oLi[this.index].left=oImgW+'px';
+				startMove(oLi[iNow],{left: -oImgW});
+			}else if(iNow>this.index)
+			{
+				oLi[this.index].left=-oImgW+'px';
+				startMove(oLi[iNow],{left: oImgW});
+			}
+			for(var i=0; i<oA.length; i++)
+			{
+				oA[i].className='';
+			}
+			this.className='active';
+			startMove(oLi[this.index],{left: 0});
+			iNow=this.index;
+			
+			
+		}	
+	}
+	
+}
+</script>
+</head>
+
+<body>
+<div id="slider">
+	<ul>
+		<li><img src="http://pic20.nipic.com/20120411/8179257_151754573147_2.jpg" /></li>
+		<li><img src="http://p4.zbjimg.com/task/2012-06/13/1775496/4fd8ab2e00de0.jpg" /></li>
+		<li><img src="http://p4.zbjimg.com/task/2012-06/12/1775496/4fd71299c5837.jpg" /></li>
+		<li><img src="http://p4.zbjimg.com/task/2012-06/12/1775496/4fd6e89e3b3a9.jpg" /></li>
+	</ul>
+	<div id="btn-group">
+		<a class="active"></a><a></a><a></a><a></a>
+	</div>
+</div>
+</body>
+</html>
