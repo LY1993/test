@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.ul_wp{
+			width: 800px;
+			overflow: hidden;
+		}
+		.ul{
+			list-style: none;
+			width: 9999999px;
+		}
+		.ul li{
+			float: left;
+			width: 160px;
+			-webkit-transition:all .5s;
+		}
+		.ul:hover li{
+			width: 40px;
+		}
+		.ul li:hover{
+			width: 640px;
+			box-shadow:  2px 0 5px 0px #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="ul_wp">
+		<ul class="ul" id="ul">
+			<li><img src="img/img1.jpg" alt=""></li>
+			<li><img src="img/img2.jpg" alt=""></li>
+			<li><img src="img/img3.jpg" alt=""></li>
+			<li><img src="img/img4.jpg" alt=""></li>
+			<li><img src="img/img5.jpg" alt=""></li>
+		</ul>	
+	</div>
+	<script>
+	var ul = document.getElementById('ul');
+	var aLi = ul.getElementsByTagName('li');
+	for(var i = 0 ;i< aLi.length; i++){
+		aLi[i].onclick = function(i){
+				var _self = this;
+				return function(){
+					console.log(i);
+				};
+			}(i)
+	}
+	</script>
+</body>
+</html>
